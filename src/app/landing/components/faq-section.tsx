@@ -14,39 +14,39 @@ type FaqItem = {
 const faqItems: FaqItem[] = [
   {
     value: 'item-1',
-    question: 'How do I integrate ShadcnStore components into my project?',
+    question: 'How long does it take to set up Nova Analytics?',
     answer:
-      'Integration is simple! All our components are built with shadcn/ui and work with React, Next.js, and Vite. Just copy the component code, install any required dependencies, and paste it into your project. Each component comes with detailed installation instructions and examples.',
+      'Most teams see their first live dashboard within an hour. Create a workspace, connect a data source, and Nova suggests starter dashboards based on what it finds. No SQL or engineering time is required to get going, though power users can go as deep as they like.',
   },
   {
     value: 'item-2',
-    question: 'What\'s the difference between free and premium components?',
+    question: 'Which data sources can I connect?',
     answer:
-      'Free components include essential UI elements like buttons, forms, and basic layouts. Premium components offer advanced features like complex data tables, analytics dashboards, authentication flows, and complete admin templates. Premium also includes Figma files, priority support, and commercial licenses.',
+      'Nova connects to the tools growing companies already use: product event streams, billing providers like Stripe, ad platforms, CRMs, and data warehouses such as Postgres, BigQuery, and Snowflake. The Starter plan includes core integrations; Growth and Scale unlock the full catalog.',
   },
   {
     value: 'item-3',
-    question: 'Can I use these components in commercial projects?',
+    question: 'Is there a free plan?',
     answer:
-      'Yes! Free components come with an MIT license for unlimited use. Premium components include a commercial license that allows usage in client projects, SaaS applications, and commercial products without attribution requirements.',
+      'Yes. The Starter plan is free forever and includes up to 3 dashboards and 2 team members — enough to run a small team on real numbers. Paid plans start with a 14-day free trial, and no credit card is required to try them.',
   },
   {
     value: 'item-4',
-    question: 'Do you provide support and updates?',
+    question: 'How does Nova handle security and privacy?',
     answer:
-      'Absolutely! We provide community support for free components through our Discord server and GitHub issues. Premium subscribers get priority email support, regular component updates, and early access to new releases. We also maintain compatibility with the latest shadcn/ui versions.',
+      'Your data is encrypted in transit (TLS 1.3) and at rest (AES-256). Workspaces support role-based access so people only see what they should, and the Scale plan adds SSO/SAML. We never sell or share your data.',
   },
   {
     value: 'item-5',
-    question: 'What frameworks and tools do you support?',
+    question: 'Can I share dashboards with people outside my team?',
     answer:
-      'Our components work with React 18+, Next.js 13+, and Vite. We use TypeScript, Tailwind CSS, and follow shadcn/ui conventions. Components are tested with popular tools like React Hook Form, TanStack Query, and Zustand for state management.',
+      'Yes. Any dashboard can be exported to CSV or PDF, or shared as a read-only live link — handy for board updates, investors, or client reporting. You control link access and can revoke it at any time.',
   },
   {
     value: 'item-6',
-    question: 'How often do you release new components?',
+    question: 'What happens if I outgrow my plan?',
     answer:
-      'We release new components and templates weekly. Premium subscribers get early access to new releases, while free components are updated regularly based on community feedback. You can track our roadmap and request specific components through our GitHub repository.',
+      'Upgrade at any time from Plans & Billing and the change takes effect immediately; downgrades apply at the next billing cycle so you never lose access mid-month. Annual billing saves 20% on every paid plan.',
   },
 ]
 
@@ -61,7 +61,7 @@ const FaqSection = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-muted-foreground">
-            Everything you need to know about ShadcnStore components, licensing, and integration. Still have questions? We&apos;re here to help!
+            Everything you need to know about Nova Analytics — setup, integrations, plans, and security. Still have questions? We&apos;re here to help!
           </p>
         </div>
 
@@ -93,8 +93,8 @@ const FaqSection = () => {
               Still have questions? We&apos;re here to help.
             </p>
             <Button className='cursor-pointer' asChild>
-              <a href="#contact">
-                Contact Support
+              <a href="mailto:support@novaanalytics.io">
+                Contact support
               </a>
             </Button>
           </div>

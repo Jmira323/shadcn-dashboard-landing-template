@@ -2,62 +2,63 @@
 
 import {
   BarChart3,
-  Zap,
+  Bell,
   Users,
   ArrowRight,
   Database,
-  Package,
-  Crown,
+  Share2,
+  Target,
   Layout,
-  Palette
+  ShieldCheck
 } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Image3D } from '@/components/image-3d'
 
 const mainFeatures = [
   {
-    icon: Package,
-    title: 'Curated Component Library',
-    description: 'Hand-picked blocks and templates for quality and reliability.'
+    icon: BarChart3,
+    title: 'Real-time dashboards',
+    description: 'Metrics stream in live, so decisions never wait on a nightly batch job.'
   },
   {
-    icon: Crown,
-    title: 'Free & Premium Options',
-    description: 'Start free, upgrade to premium collections when you need more.'
+    icon: Target,
+    title: 'Custom metrics',
+    description: 'Define the KPIs that match how your business actually runs.'
   },
   {
-    icon: Layout,
-    title: 'Ready-to-Use Templates',
-    description: 'Copy-paste components that just work out of the box.'
+    icon: Bell,
+    title: 'Smart alerts',
+    description: 'Get notified the moment a metric moves, before it becomes a problem.'
   },
   {
-    icon: Zap,
-    title: 'Regular Updates',
-    description: 'New blocks and templates added weekly to keep you current.'
+    icon: Share2,
+    title: 'Export & share',
+    description: 'One-click reports as CSV or PDF, or share a live dashboard link.'
   }
 ]
 
 const secondaryFeatures = [
   {
-    icon: BarChart3,
-    title: 'Multiple Frameworks',
-    description: 'React, Next.js, and Vite compatibility for flexible development.'
-  },
-  {
-    icon: Palette,
-    title: 'Modern Tech Stack',
-    description: 'Built with shadcn/ui, Tailwind CSS, and TypeScript.'
-  },
-  {
     icon: Users,
-    title: 'Responsive Design',
-    description: 'Mobile-first components for all screen sizes and devices.'
+    title: 'Team workspaces',
+    description: 'Shared spaces with roles and permissions for your whole organization.'
   },
   {
     icon: Database,
-    title: 'Developer-Friendly',
-    description: 'Clean code, well-documented, easy integration and customization.'
+    title: 'Integrations',
+    description: 'Connect product, billing, and marketing data sources in minutes.'
+  },
+  {
+    icon: Layout,
+    title: 'Works everywhere',
+    description: 'Every dashboard is responsive and reads beautifully on any device.'
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Enterprise-grade security',
+    description: 'Your data is encrypted in transit and at rest, with fine-grained access.'
   }
 ]
 
@@ -67,12 +68,12 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mx-auto max-w-2xl text-center mb-16">
-          <Badge variant="outline" className="mb-4">Marketplace Features</Badge>
+          <Badge variant="outline" className="mb-4">Product</Badge>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-            Everything you need to build amazing web applications
+            Everything you need to act on your data
           </h2>
           <p className="text-lg text-muted-foreground">
-            Our marketplace provides curated blocks, templates, landing pages, and admin dashboards to help you build professional applications faster than ever.
+            Nova Analytics brings your product and revenue metrics into one clear, real-time view — from first signup to board report.
           </p>
         </div>
 
@@ -82,17 +83,17 @@ export function FeaturesSection() {
           <Image3D
             lightSrc="/feature-1-light.png"
             darkSrc="/feature-1-dark.png"
-            alt="Analytics dashboard"
+            alt="Nova Analytics dashboard with real-time metrics"
             direction="left"
           />
           {/* Right Content */}
           <div className="space-y-6">
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-                Components that accelerate development
+                From raw events to clear answers
               </h3>
               <p className="text-muted-foreground text-base text-pretty">
-                Our curated marketplace offers premium blocks and templates designed to save time and ensure consistency across your admin projects.
+                Point Nova at your data and get dashboards your whole team can read at a glance. Track revenue, activation, retention, and the metrics unique to your product.
               </p>
             </div>
 
@@ -111,15 +112,15 @@ export function FeaturesSection() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-4 pe-4 pt-2">
-              <Button size="lg" className="cursor-pointer">
-                <a href="https://shadcnstore.com/templates" className='flex items-center'>
-                  Browse Templates
+              <Button size="lg" className="cursor-pointer" asChild>
+                <Link href="/sign-up" className="flex items-center">
+                  Get started
                   <ArrowRight className="ms-2 size-4" aria-hidden="true" />
-                </a>
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="cursor-pointer">
-                <a href="https://shadcnstore.com/blocks">
-                  View Components
+              <Button size="lg" variant="outline" className="cursor-pointer" asChild>
+                <a href="#pricing">
+                  View pricing
                 </a>
               </Button>
             </div>
@@ -132,10 +133,10 @@ export function FeaturesSection() {
           <div className="space-y-6 order-2 lg:order-1">
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
-                Built for modern development workflows
+                Built for the whole team
               </h3>
               <p className="text-muted-foreground text-base text-pretty">
-                Every component follows best practices with TypeScript, responsive design, and clean code architecture that integrates seamlessly into your projects.
+                Analytics only matter when everyone can see them. Nova keeps your team in one workspace, with the access controls and integrations a growing company needs.
               </p>
             </div>
 
@@ -154,16 +155,16 @@ export function FeaturesSection() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-4 pe-4 pt-2">
-              <Button size="lg" className="cursor-pointer">
-                <a href="#" className='flex items-center'>
-                  View Documentation
+              <Button size="lg" className="cursor-pointer" asChild>
+                <Link href="/sign-up" className="flex items-center">
+                  Create your workspace
                   <ArrowRight className="ms-2 size-4" aria-hidden="true" />
-                </a>
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" className="cursor-pointer">
-                <a href="https://github.com/silicondeck/shadcn-dashboard-landing-template" target="_blank" rel="noopener noreferrer">
-                  GitHub Repository
-                </a>
+              <Button size="lg" variant="outline" className="cursor-pointer" asChild>
+                <Link href="/sign-in">
+                  Log in
+                </Link>
               </Button>
             </div>
           </div>
@@ -172,7 +173,7 @@ export function FeaturesSection() {
           <Image3D
             lightSrc="/feature-2-light.png"
             darkSrc="/feature-2-dark.png"
-            alt="Performance dashboard"
+            alt="Nova Analytics team workspace"
             direction="right"
             className="order-1 lg:order-2"
           />

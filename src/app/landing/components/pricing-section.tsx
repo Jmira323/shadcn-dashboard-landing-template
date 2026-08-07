@@ -1,6 +1,7 @@
 "use client"
 
 import { Check } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -8,56 +9,55 @@ import { useState } from 'react'
 
 const plans = [
   {
-    name: 'Free',
-    description: 'Perfect for getting started with essential components',
+    name: 'Starter',
+    description: 'For small teams getting their first dashboards up',
     monthlyPrice: 0,
     yearlyPrice: 0,
     features: [
-      'Access to 50+ free components',
-      'Basic dashboard templates',
-      'Community support',
-      'GitHub repository access',
-      'Documentation and guides'
+      'Up to 3 dashboards',
+      '2 team members',
+      '30-day data history',
+      'Core integrations',
+      'Community support'
     ],
-    cta: 'Get Started',
+    cta: 'Get started',
     popular: false
   },
   {
-    name: 'Pro',
-    description: 'For developers who need premium templates and components',
-    monthlyPrice: 19,
-    yearlyPrice: 15,
+    name: 'Growth',
+    description: 'For growing teams that run on their metrics every day',
+    monthlyPrice: 49,
+    yearlyPrice: 39,
     features: [
-      'Premium template collection',
-      'Advanced dashboard layouts',
-      'Priority support',
-      'Commercial use license',
-      'Early access to new releases',
-      'Figma design files',
-      'Custom component requests',
-      'Direct developer access',
-      'Exclusive design resources'
+      'Unlimited dashboards',
+      '10 team members',
+      '12-month data history',
+      'Real-time alerts',
+      'Custom metrics',
+      'All integrations',
+      'CSV & PDF export',
+      'Priority support'
     ],
-    cta: 'Get Started',
+    cta: 'Start free trial',
     popular: true,
-    includesPrevious: 'All Free features, plus'
+    includesPrevious: 'All Starter features, plus'
   },
   {
-    name: 'Lifetime',
-    description: 'One-time payment for lifetime access to everything',
-    monthlyPrice: 299,
-    yearlyPrice: 299,
+    name: 'Scale',
+    description: 'For companies that need control, scale, and support',
+    monthlyPrice: 149,
+    yearlyPrice: 119,
     features: [
-      'Lifetime updates and support',
-      'Private Discord channel',
-      'No recurring fees ever',
-      'Future template access',
-      'VIP support priority',
-      'Exclusive beta features'
+      'Unlimited team members',
+      'Unlimited data history',
+      'Role-based access control',
+      'SSO / SAML',
+      'Dedicated success manager',
+      'SLA with 99.9% uptime'
     ],
-    cta: 'Get Started',
+    cta: 'Start free trial',
     popular: false,
-    includesPrevious: 'All Pro features, plus'
+    includesPrevious: 'All Growth features, plus'
   }
 ]
 
@@ -74,7 +74,7 @@ export function PricingSection() {
             Choose your plan
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Start building with our free components or upgrade to Pro for access to premium templates and advanced features.
+            Start free, then grow into the plan that fits your team. Every paid plan begins with a 14-day free trial — no credit card required.
           </p>
 
           {/* Billing Toggle */}
@@ -127,16 +127,10 @@ export function PricingSection() {
                   {/* Pricing */}
                   <div>
                     <div className="text-4xl font-bold mb-1">
-                      {plan.name === 'Lifetime' ? (
-                        `$${plan.monthlyPrice}`
-                      ) : plan.name === 'Free' ? (
-                        '$0'
-                      ) : (
-                        `$${isYearly ? plan.yearlyPrice : plan.monthlyPrice}`
-                      )}
+                      {`$${isYearly ? plan.yearlyPrice : plan.monthlyPrice}`}
                     </div>
                     <div className="text-muted-foreground text-sm">
-                      {plan.name === 'Lifetime' ? 'One-time payment' : 'Per month'}
+                      Per month{isYearly && plan.monthlyPrice > 0 ? ', billed annually' : ''}
                     </div>
                   </div>
 
@@ -149,8 +143,9 @@ export function PricingSection() {
                           : 'shadow-sm shadow-black/15 border border-transparent bg-background ring-1 ring-foreground/10 hover:bg-muted/50'
                       }`}
                       variant={plan.popular ? 'default' : 'secondary'}
+                      asChild
                     >
-                      {plan.cta}
+                      <Link href="/sign-up">{plan.cta}</Link>
                     </Button>
                   </div>
 
@@ -179,9 +174,9 @@ export function PricingSection() {
         {/* Enterprise Note */}
         <div className="mt-16 text-center">
           <p className="text-muted-foreground">
-            Need custom components or have questions? {' '}
+            Need a custom plan or have questions? {' '}
             <Button variant="link" className="p-0 h-auto cursor-pointer" asChild>
-              <a href="#contact">
+              <a href="mailto:sales@novaanalytics.io">
                 Contact our team
               </a>
             </Button>

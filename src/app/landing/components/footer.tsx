@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Logo } from '@/components/logo'
-import { Github, Twitter, Linkedin, Youtube, Heart } from 'lucide-react'
 
 const newsletterSchema = z.object({
   email: z.string().email({
@@ -26,35 +26,21 @@ const footerLinks = {
   product: [
     { name: 'Features', href: '#features' },
     { name: 'Pricing', href: '#pricing' },
-    { name: 'API', href: '#api' },
-    { name: 'Documentation', href: '#docs' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'FAQ', href: '#faq' },
   ],
-  company: [
-    { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Careers', href: '#careers' },
-    { name: 'Press', href: '#press' },
+  account: [
+    { name: 'Log in', href: '/sign-in' },
+    { name: 'Sign up', href: '/sign-up' },
+    { name: 'Reset password', href: '/forgot-password' },
+    { name: 'Dashboard', href: '/dashboard' },
   ],
-  resources: [
-    { name: 'Help Center', href: '#help' },
-    { name: 'Community', href: '#community' },
-    { name: 'Guides', href: '#guides' },
-    { name: 'Webinars', href: '#webinars' },
-  ],
-  legal: [
-    { name: 'Privacy', href: '#privacy' },
-    { name: 'Terms', href: '#terms' },
-    { name: 'Security', href: '#security' },
-    { name: 'Status', href: '#status' },
+  support: [
+    { name: 'FAQ', href: '#faq' },
+    { name: 'Email support', href: 'mailto:support@novaanalytics.io' },
+    { name: 'Sales', href: 'mailto:sales@novaanalytics.io' },
   ],
 }
-
-const socialLinks = [
-  { name: 'Twitter', href: '#', icon: Twitter },
-  { name: 'GitHub', href: 'https://github.com/silicondeck/shadcn-dashboard-landing-template', icon: Github },
-  { name: 'LinkedIn', href: '#', icon: Linkedin },
-  { name: 'YouTube', href: '#', icon: Youtube },
-]
 
 export function LandingFooter() {
   const form = useForm<z.infer<typeof newsletterSchema>>({
@@ -79,7 +65,7 @@ export function LandingFooter() {
           <div className="mx-auto max-w-2xl text-center">
             <h3 className="text-2xl font-bold mb-4">Stay updated</h3>
             <p className="text-muted-foreground mb-6">
-              Get the latest updates, articles, and resources sent to your inbox weekly.
+              Product updates, new integrations, and practical guides to running your team on data.
             </p>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-2 max-w-md mx-auto sm:flex-row">
@@ -106,36 +92,23 @@ export function LandingFooter() {
         </div>
 
         {/* Main Footer Content */}
-        <div className="grid gap-8 grid-cols-4 lg:grid-cols-6">
+        <div className="grid gap-8 grid-cols-3 lg:grid-cols-5">
           {/* Brand Column */}
-          <div className="col-span-4 lg:col-span-2 max-w-2xl">
+          <div className="col-span-3 lg:col-span-2 max-w-2xl">
             <div className="flex items-center space-x-2 mb-4 max-lg:justify-center">
-              <a href="https://shadcnstore.com" target='_blank' className="flex items-center space-x-2 cursor-pointer">
-                <Logo size={32} />
-                <span className="font-bold text-xl">ShadcnStore</span>
-              </a>
+              <Link href="/" className="flex items-center space-x-2 cursor-pointer">
+                <Logo size={32} className="rounded-lg" />
+                <span className="font-bold text-xl">Nova Analytics</span>
+              </Link>
             </div>
             <p className="text-muted-foreground mb-6 max-lg:text-center max-lg:flex max-lg:justify-center">
-              Accelerating web development with curated blocks, templates, landing pages, and admin dashboards designed for modern developers.
+              Nova Analytics turns raw product and revenue data into clear, real-time
+              dashboards your whole team can act on.
             </p>
-            <div className="flex space-x-4 max-lg:justify-center">
-              {socialLinks.map((social) => (
-                <Button key={social.name} variant="ghost" size="icon" asChild>
-                  <a
-                    href={social.href}
-                    aria-label={social.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <social.icon className="h-4 w-4" />
-                  </a>
-                </Button>
-              ))}
-            </div>
           </div>
 
           {/* Links Columns */}
-          <div className='max-md:col-span-2 lg:col-span-1'>
+          <div className='max-md:col-span-3 lg:col-span-1'>
             <h4 className="font-semibold mb-4">Product</h4>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
@@ -151,42 +124,26 @@ export function LandingFooter() {
             </ul>
           </div>
 
-          <div className='max-md:col-span-2 lg:col-span-1'>
-            <h4 className="font-semibold mb-4">Company</h4>
+          <div className='max-md:col-span-3 lg:col-span-1'>
+            <h4 className="font-semibold mb-4">Account</h4>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {footerLinks.account.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className='max-md:col-span-2 lg:col-span-1'>
-            <h4 className="font-semibold mb-4">Resources</h4>
+          <div className='max-md:col-span-3 lg:col-span-1'>
+            <h4 className="font-semibold mb-4">Support</h4>
             <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className='max-md:col-span-2 lg:col-span-1'>
-            <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
+              {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -203,30 +160,9 @@ export function LandingFooter() {
         <Separator className="my-8" />
 
         {/* Bottom Footer */}
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-2">
-          <div className="flex flex-col sm:flex-row items-center gap-2 text-muted-foreground text-sm">
-            <div className="flex items-center gap-1">
-              <span>Made with</span>
-              <Heart className="h-4 w-4 text-red-500 fill-current" />
-              <span>by</span>
-              <a href="https://shadcnstore.com" target='_blank' className="font-semibold text-foreground hover:text-primary transition-colors cursor-pointer">
-                ShadcnStore
-              </a>
-            </div>
-            <span className="hidden sm:inline">•</span>
-            <span>© {new Date().getFullYear()} for the developer community</span>
-          </div>
-          <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-4 md:mt-0">
-            <a href="#privacy" className="hover:text-foreground transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#terms" className="hover:text-foreground transition-colors">
-              Terms of Service
-            </a>
-            <a href="#cookies" className="hover:text-foreground transition-colors">
-              Cookie Policy
-            </a>
-          </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-muted-foreground">
+          <span>© 2026 Nova Analytics. All rights reserved.</span>
+          <span>See your data in a new light.</span>
         </div>
       </div>
     </footer>

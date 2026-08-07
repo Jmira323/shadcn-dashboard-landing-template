@@ -1,8 +1,8 @@
 "use client"
 
 import {
-  Package,
-  Download,
+  Database,
+  Activity,
   Users,
   Star
 } from 'lucide-react'
@@ -12,28 +12,28 @@ import { DotPattern } from '@/components/dot-pattern'
 
 const stats = [
   {
-    icon: Package,
-    value: '500+',
-    label: 'Components',
-    description: 'Ready-to-use blocks'
-  },
-  {
-    icon: Download,
-    value: '25K+',
-    label: 'Downloads',
-    description: 'Trusted worldwide'
-  },
-  {
     icon: Users,
-    value: '10K+',
-    label: 'Developers',
-    description: 'Active community'
+    value: '12K+',
+    label: 'Teams',
+    description: 'Working in Nova daily'
+  },
+  {
+    icon: Database,
+    value: '4.2B+',
+    label: 'Data points',
+    description: 'Processed every month'
+  },
+  {
+    icon: Activity,
+    value: '99.9%',
+    label: 'Uptime',
+    description: 'Over the last 12 months'
   },
   {
     icon: Star,
     value: '4.9',
     label: 'Rating',
-    description: 'User satisfaction'
+    description: 'Customer satisfaction'
   }
 ]
 

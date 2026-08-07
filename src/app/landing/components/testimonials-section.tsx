@@ -1,95 +1,67 @@
 "use client"
 
 import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 
 type Testimonial = {
   name: string
   role: string
-  image: string
   quote: string
 }
 
+// Fictional customers, matching the orgs in the trusted-by carousel.
 const testimonials: Testimonial[] = [
   {
-    name: 'Alexandra Mitchell',
-    role: 'Senior Frontend Developer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-1',
+    name: 'Elena Vasquez',
+    role: 'VP of Growth, Helios Retail',
     quote:
-      'This platform has completely transformed our development workflow. The component system is so well-architected that even complex applications feel simple to build.',
+      'We went from a Monday-morning spreadsheet ritual to live dashboards the whole company watches. Nova changed how we run the business — decisions that used to take a week now happen in the standup.',
   },
   {
-    name: 'James Thompson',
-    role: 'Technical Lead',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-1',
-    quote: 'After trying countless frameworks, this is the one that finally clicked. The documentation is exceptional.',
+    name: 'Marcus Cole',
+    role: 'Head of Operations, Orbit Logistics',
+    quote: 'The real-time alerts alone paid for Nova in the first month. We caught a billing issue before it hit a single customer.',
   },
   {
-    name: 'Priya Sharma',
-    role: 'Product Designer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-2',
+    name: 'Priya Nair',
+    role: 'Data Engineer, Vega Health',
     quote:
-      'The design system is beautiful and consistent. I can prototype ideas quickly and hand them off to developers with confidence that the implementation will match perfectly.',
+      'Setup was genuinely fast. I connected our sources in an afternoon and had the exec dashboard our leadership had been asking about for a year live by the end of the day.',
   },
   {
-    name: 'Robert Kim',
-    role: 'Engineering Manager',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-2',
+    name: 'Dana Kim',
+    role: 'Product Lead, Lumen Media',
     quote:
-      'We migrated our entire application to this platform in just two weeks. The performance improvements were immediate.',
+      'Custom metrics are the killer feature. We track engagement in a way that is specific to our product, and Nova handles it without a single workaround.',
   },
   {
-    name: 'Maria Santos',
-    role: 'Full Stack Engineer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-3',
+    name: 'Sam Whitfield',
+    role: 'CFO, Crestview Capital',
     quote:
-      'The accessibility features are top-notch. Building inclusive applications has never been easier. Every component follows best practices out of the box, and the automated testing suite ensures we maintain high accessibility standards throughout our development process.',
+      'Board reporting used to take my team three days a quarter. Now I share a live dashboard link and spend that time on the numbers themselves, not on assembling them. The export to PDF is board-meeting ready as-is.',
   },
   {
-    name: 'Thomas Anderson',
-    role: 'Solutions Architect',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-3',
-    quote: 'Scalability was our biggest concern, but this platform handles enterprise-level complexity with ease.',
+    name: 'Tomás Ibarra',
+    role: 'COO, Atlas Freight',
+    quote: 'Every depot manager sees the same numbers at the same time. The arguments about whose spreadsheet is right are simply gone.',
   },
   {
-    name: 'Lisa Chang',
-    role: 'UX Researcher',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-4',
+    name: 'Grace Osei',
+    role: 'Analytics Manager, Pulse Fitness',
     quote:
-      'User testing results have been consistently positive since we adopted this platform. The user experience is intuitive and the performance is stellar. Our user satisfaction scores have increased by 40% since the migration.',
+      'Team workspaces with proper roles mean I can give every club access to their own metrics without exposing company-wide data. That balance was impossible with our previous tool.',
   },
   {
-    name: 'Michael Foster',
-    role: 'DevOps Engineer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-4',
-    quote: 'Deployment and maintenance are a breeze. The platform integrates seamlessly with our CI/CD pipeline.',
+    name: 'Victor Chen',
+    role: 'CTO, Cobalt Labs',
+    quote: 'It scales. We push millions of events a day at Nova and the dashboards stay instant.',
   },
   {
-    name: 'Sophie Laurent',
-    role: 'Creative Director',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-5',
+    name: 'Maya Patel',
+    role: 'Founder, Quantum Supply',
     quote:
-      'The creative possibilities are endless. We can bring any design concept to life without compromising on technical quality or user experience.',
-  },
-  {
-    name: 'Daniel Wilson',
-    role: 'Backend Developer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-5',
-    quote: 'The API design is exceptional. Clean, intuitive, and well-documented.',
-  },
-  {
-    name: 'Natasha Petrov',
-    role: 'Mobile App Developer',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=female-6',
-    quote:
-      'Cross-platform development has never been this efficient. One codebase, multiple platforms, consistent user experience. This is the future. The responsive design system ensures our apps look perfect on every device.',
-  },
-  {
-    name: 'Carlos Rivera',
-    role: 'Startup Founder',
-    image: 'https://notion-avatars.netlify.app/api/avatar?preset=male-6',
-    quote: 'As a non-technical founder, this platform gave me the confidence to build our MVP quickly.',
+      'As a non-technical founder, I finally understand my own funnel. Nova made our data legible to me, not just to our engineers, and the mobile view means I check it from anywhere.',
   },
 ]
 
@@ -101,10 +73,10 @@ export function TestimonialsSection() {
         <div className="mx-auto max-w-2xl text-center mb-16">
           <Badge variant="outline" className="mb-4">Testimonials</Badge>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-            Empowering Innovation Worldwide
+            Teams that run on Nova
           </h2>
           <p className="text-lg text-muted-foreground">
-            Join thousands of developers and teams who trust our platform to build exceptional digital experiences.
+            From retail to logistics to healthcare, thousands of teams make their daily decisions on Nova Analytics dashboards.
           </p>
         </div>
 
@@ -115,13 +87,6 @@ export function TestimonialsSection() {
               <CardContent>
                 <div className="flex items-start gap-4">
                   <Avatar className="bg-muted size-12 shrink-0">
-                    <AvatarImage
-                      alt={testimonial.name}
-                      src={testimonial.image}
-                      loading="lazy"
-                      width="120"
-                      height="120"
-                    />
                     <AvatarFallback>
                       {testimonial.name
                         .split(' ')
@@ -131,9 +96,7 @@ export function TestimonialsSection() {
                   </Avatar>
 
                   <div className="min-w-0 flex-1">
-                    <a href="#" onClick={e => e.preventDefault()} className="cursor-pointer">
-                      <h3 className="font-medium hover:text-primary transition-colors">{testimonial.name}</h3>
-                    </a>
+                    <h3 className="font-medium">{testimonial.name}</h3>
                     <span className="text-muted-foreground block text-sm tracking-wide">
                       {testimonial.role}
                     </span>
