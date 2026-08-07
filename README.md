@@ -1,551 +1,105 @@
-# ShadCN Dashboard + Landing Page Template
+# Nova Analytics Dashboard
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-[![GitHub Stars](https://img.shields.io/github/stars/silicondeck/shadcn-dashboard-landing-template?style=social)](https://github.com/silicondeck/shadcn-dashboard-landing-template)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+> See your data in a new light. Nova Analytics turns raw product and revenue data into clear, real-time dashboards your whole team can act on.
 
-![Dashboard Preview](vite-version/public/dashboard.png)
+**Live demo:** _URL coming after deploy_ · **Test login:** `admin@novaanalytics.io` / password provided in SUBMISSION notes
 
-
-<div align="center">
-
-🎯 <a href="https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/dashboard" target="_blank">**View Live Demo**</a> | 🧩 <a href="https://shadcnstore.com/blocks" target="_blank">**Explore Premium Blocks**</a>
-
-</div>
-
-Introducing a sleek, modern, and open-source admin dashboard template built with the latest web technologies, including React + TypeScript + Vite and Next.js + TypeScript. Powered by shadcn/ui v3 and Tailwind CSS v4, this project offers a clean, responsive, and highly customizable UI. Developed and maintained by [ShadcnStore](https://shadcnstore.com), this free and open-source template is designed to accelerate your development process. Whether you're building an admin panel, SaaS dashboard, or launching an AI-driven product, this dashboard provides a beautiful, production-ready interface for your application — complete with a seamless dashboard and a fully-featured landing page to help you hit the ground running.
-
-🚀 **Free & Open Source** by [**ShadcnStore**](https://shadcnstore.com) - Your gateway to premium UI components and templates.
-
+![Nova Analytics landing page](docs/screenshot-landing.png)
+![Nova Analytics dashboard](docs/screenshot-dashboard.png)
 
 ---
 
-## 🌟 Live Demo
+## Overview
 
-Experience the template in action:
+Nova Analytics is a whitelabeled data-dashboard product built for a fictional client as part of a technical trial. It provides a public marketing landing page, real email/password authentication, and a protected analytics dashboard.
 
-- **[🖥️ Dashboard Demo](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/dashboard)** - Complete admin dashboard with apps
-- **[🌐 Landing Page Demo](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/landing)** - Beautiful marketing landing page
+This project is a rebrand of an open-source dashboard template (see [Credits](#credits)), extended with production authentication and deployed to a live HTTPS environment. The whole build was driven with **Claude Code** — see [`PROMPTS.md`](PROMPTS.md) for the process.
 
-> **Note**: This template includes both a complete dashboard (with mail, tasks, chat, calendar apps) and a marketing landing page in both Vite and Next.js versions.
+## Tech stack
 
----
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router, React 19, Turbopack) |
+| Language | TypeScript |
+| UI | shadcn/ui + Radix UI |
+| Styling | Tailwind CSS v4 (brand tokens as CSS variables in `src/app/globals.css`) |
+| Auth | Supabase (email/password via `@supabase/ssr`) |
+| Charts / tables | Recharts 3, TanStack Table |
+| Hosting | Vercel (automatic HTTPS) |
+| CI | GitHub Actions (lint + build on every push/PR) |
 
-## ✨ What's Included
+## Features
 
-🎯 **Two Complete Templates:**
+- **Marketing landing page** at `/` — responsive hero, features, pricing, testimonials, FAQ, and CTAs to sign up / log in.
+- **Authentication** — real signup, login, logout, and password reset backed by Supabase; sessions refreshed on every request by `src/proxy.ts`.
+- **Protected dashboard** — unauthenticated visitors to `/dashboard` (or any app page) are redirected to `/sign-in`; successful auth lands on `/dashboard`. The proxy fails closed if Supabase env vars are missing.
+- **Whitelabeled UI** — Nova Analytics branding, violet/aqua palette, logo, and favicon throughout; dark mode included. Chart colors are validated for color-blind-safe separation and contrast in both modes.
 
-- **🖥️ Admin Dashboard** - Modern, feature-rich dashboard with 30+ pages
-- **🌐 Landing Page** - Business-ready landing page template
-
-⚡ **Dual Framework Support:**
-
-- **Vite** - Lightning-fast development experience
-- **Next.js 15** - Production-ready with App Router
-
-🎨 **Live Theme Customization:**
-
-- **tweakcn integration** - Real-time theme editing
-- **Built-in customizer** - Preview all possible combinations live
-- **Multiple layouts** - Sidebar variants & collapsible options
-
----
-
-## 🚀 Key Features
-
-### 📊 **Dashboard Features**
-
-- **2 Dashboard Variants** - Overview & Analytics dashboards
-- **App Demos** - Mail, Tasks, Chat, Calendar, Users applications
-- **30+ Pages** - Authentication, Settings, Errors, FAQ, Pricing
-- **Data Tables** - Advanced tables with sorting, filtering, and pagination
-- **Charts & Analytics** - Recharts integration with beautiful visualizations
-
-### 🎨 **Design & Theming**
-
-- **Live Theme Customizer** - Real-time color and layout switching
-- **tweakcn Integration** - Professional theme management
-- **Multiple Layouts** - Sidebar variants, collapsible navigation
-- **Responsive Design** - Mobile-first approach with container queries
-- **Dark/Light Mode** - Seamless theme switching
-
-### ⚡ **Developer Experience**
-
-- **Modern Tech Stack** - React 19, TypeScript, Tailwind CSS v4
-- **Cross-Platform** - Works with both Vite and Next.js
-- **Type Safety** - Full TypeScript support throughout
-- **Component Library** - Latest shadcn/ui v3 with Radix UI
-- **Easy Customization** - Well-structured, modular codebase
-
----
-
-## 🏗️ Project Structure
-
-```text
-📁 shadcn-dashboard/
-├── 📁 vite-version/              # Vite + React version
-│   ├── 📁 src/
-│   │   ├── 📁 app/               # Demo pages & applications
-│   │   │   ├── 📁 dashboard/     # Dashboard variants
-│   │   │   ├── 📁 dashboard-2/   # Alternative dashboard layout
-│   │   │   ├── 📁 landing/       # Landing page template
-│   │   │   ├── 📁 auth/          # Authentication pages
-│   │   │   ├── 📁 mail/          # Email application demo
-│   │   │   ├── 📁 tasks/         # Task management demo
-│   │   │   ├── 📁 chat/          # Chat application demo
-│   │   │   ├── 📁 calendar/      # Calendar demo
-│   │   │   ├── 📁 settings/      # User settings pages
-│   │   │   ├── 📁 errors/        # Error pages (404, 500, etc.)
-│   │   │   ├── 📁 users/         # User management pages
-│   │   │   ├── 📁 faqs/          # FAQ pages
-│   │   │   └── 📁 pricing/       # Pricing pages
-│   │   ├── 📁 components/        # UI components
-│   │   │   ├── 📁 ui/            # shadcn/ui v3 components
-│   │   │   ├── 📁 layouts/       # Layout components
-│   │   │   └── 📁 theme-customizer/ # Live theme editor
-│   │   ├── 📁 hooks/             # Custom React hooks
-│   │   ├── 📁 lib/               # Utilities & configurations
-│   │   └── 📁 types/             # TypeScript type definitions
-│   └── 📄 package.json           # Vite dependencies
-│
-├── 📁 nextjs-version/            # Next.js 15 version
-│   ├── 📁 src/
-│   │   ├── 📁 app/               # App Router with route groups
-│   │   │   ├── 📁 (auth)/        # Authentication route group
-│   │   │   │   ├── 📁 login/     # Login pages
-│   │   │   │   ├── 📁 signup/    # Registration pages
-│   │   │   │   ├── 📁 forgot-password/ # Password recovery
-│   │   │   │   └── 📁 errors/    # Error pages (404, 500, etc.)
-│   │   │   ├── 📁 (dashboard)/   # Dashboard route group
-│   │   │   │   ├── 📁 dashboard/ # Main dashboard
-│   │   │   │   ├── 📁 dashboard-2/ # Alternative dashboard
-│   │   │   │   ├── 📁 mail/      # Email application
-│   │   │   │   ├── 📁 tasks/     # Task management
-│   │   │   │   ├── 📁 chat/      # Chat application
-│   │   │   │   ├── 📁 calendar/  # Calendar demo
-│   │   │   │   ├── 📁 settings/  # User settings
-│   │   │   │   ├── 📁 users/     # User management
-│   │   │   │   ├── 📁 faqs/      # FAQ pages
-│   │   │   │   ├── 📁 pricing/   # Pricing pages
-│   │   │   │   └── 📄 layout.tsx # Dashboard layout
-│   │   │   ├── 📁 landing/       # Landing page template
-│   │   │   ├── 📄 layout.tsx     # Root layout
-│   │   │   ├── 📄 loading.tsx    # Global loading component
-│   │   │   ├── 📄 not-found.tsx  # 404 page
-│   │   │   └── 📄 page.tsx       # Homepage
-│   │   ├── 📁 components/        # Same component structure as Vite
-│   │   ├── 📁 hooks/             # Custom React hooks
-│   │   ├── 📁 lib/               # Utilities & configurations
-│   │   └── 📁 types/             # TypeScript type definitions
-│   └── 📄 package.json           # Next.js dependencies
-│
-├── 📄 README.md                  # This file
-└── 📄 LICENSE                    # MIT License
-```
-
----
-
-## � Quick Start
+## Getting started
 
 ### Prerequisites
+- Node.js 18+ (Node 22 recommended)
+- pnpm (`npm install -g pnpm`)
+- A free [Supabase](https://supabase.com) project
 
-- **Node.js** 18+
-- **pnpm** (recommended) or npm
-
-### 1. Clone the Repository
-
+### 1. Install
 ```bash
-git clone https://github.com/silicondeck/shadcn-dashboard-landing-template
-cd shadcn-dashboard
-```
-
-### 2. Choose Your Framework
-
-#### 🔥 **Vite Version** (Recommended for Development)
-
-```bash
-cd vite-version
+git clone https://github.com/Jmira323/shadcn-dashboard-landing-template.git
+cd shadcn-dashboard-landing-template
 pnpm install
-pnpm dev
 ```
 
-**Access at:** `http://localhost:5173`
-
-#### ⚡ **Next.js Version** (Production-Ready)
-
+### 2. Environment variables
+Copy the example file and fill in your Supabase credentials (Supabase dashboard → Settings → API):
 ```bash
-cd nextjs-version
-pnpm install
-pnpm dev
+cp .env.example .env.local
+```
+```dotenv
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-public-key>
 ```
 
-**Access at:** `http://localhost:3000`
-
-### 3. Start Building
-
-- **Dashboard:** Navigate to [/dashboard](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/dashboard) or [/dashboard-2](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/dashboard-2)
-- **Landing Page:** Visit [/landing](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/landing) for the business template
-- **Theme Customizer:** Use the built-in customizer to preview themes live
-- **Apps:** Explore [Mail](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/mail), [Tasks](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/tasks), [Chat](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/chat), [Calendar](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/calendar), [Users](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/users)
-- **Authentication:** Check out [Signin](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/auth/sign-in), [Signup](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/auth/sign-up), [Forgot Password](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/auth/forgot-password)
-- **Settings:** Visit [Account](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/settings/account), [Appearance](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/settings/appearance), [Billing](https://shadcnstore.com/templates/dashboard/shadcn-dashboard-landing-template/settings/billing)
-
----
-
-## 🛠️ Development Commands
-
-### Vite Version
-
+### 3. Run
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm preview      # Preview production build
-pnpm lint         # Run ESLint
+pnpm dev        # http://localhost:3000
 ```
 
-### Next.js Version
+### 4. Create a test user
+In the Supabase dashboard → **Authentication → Users → Add user**, create `admin@novaanalytics.io` with a password. (For quick demos you can disable email confirmation under Authentication → Sign In / Providers → Email.)
 
-```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm start        # Start production server
-pnpm lint         # Run Next.js linter
+## Deployment (Vercel)
+
+1. Push your fork to GitHub (public).
+2. In Vercel: **New Project → Import** the repo → framework preset **Next.js** → root directory = repo root.
+3. Add the two environment variables above in Vercel's project settings.
+4. Deploy. Then set your production URL as the **Site URL** and add it to **Redirect URLs** in Supabase → Authentication → URL Configuration so auth works on the live domain.
+
+## Project structure (high level)
+```
+src/
+  app/
+    page.tsx          # landing page (public)
+    landing/          # landing sections (hero, features, pricing, FAQ, ...)
+    (auth)/           # /sign-in, /sign-up, /forgot-password, /errors
+    (dashboard)/      # protected app: dashboards, mail, tasks, chat, users, settings
+  components/         # shared UI (shadcn/ui), sidebar, header, logo
+  lib/supabase/       # browser + server Supabase clients
+  proxy.ts            # session refresh + route protection (Next 16 middleware)
+public/               # brand SVGs, favicon assets, app screenshots
+.github/workflows/    # CI: lint + build
 ```
 
----
+## Known limitations / what I'd improve with more time
 
-## 🎨 Theme Customization
+- Auth is email/password only; I would add OAuth (Google/GitHub) and an in-app password-change flow.
+- Dashboard data is sample/mock data; I would connect real data sources or Supabase tables per workspace.
+- I would add role-based access and per-workspace data isolation.
+- No automated E2E tests yet; I would add Playwright coverage for the auth happy paths and wire it into CI.
 
-### **Live Theme Customizer**
+## Credits
 
-This template includes a powerful **live theme customizer** powered by **tweakcn**:
+Built on the MIT-licensed [shadcnstore/shadcn-dashboard-landing-template](https://github.com/shadcnstore/shadcn-dashboard-landing-template). All original branding has been replaced with the fictional Nova Analytics identity as part of the whitelabel exercise. Original template © ShadcnStore under the MIT License (retained in [`License.md`](License.md)).
 
-![Customizer Preview](vite-version/public/customizer.png)
+## License
 
-1. **Open the customizer** - Click the theme customizer button
-2. **Choose colors** - Pick from preset themes or create custom palettes
-3. **Layout options** - Switch between sidebar variants and layouts
-4. **Real-time preview** - See changes instantly across all components
-5. **Export themes** - Save your custom themes for production use
-
-### **Built-in Themes**
-
-- 🌊 **Default** - Clean blue theme
-- 🌙 **Dark** - Professional dark theme
-- 🌸 **Rose** - Warm pink accents
-- 🌿 **Green** - Fresh green palette
-- 🌅 **Orange** - Vibrant orange theme
-- 🔴 **Red** - Bold red accents
-- 💜 **Violet** - Modern purple theme
-
-### **Custom Theme Creation**
-
-#### **Adding Custom Themes to the Customizer**
-To add your own custom themes to the live customizer, create theme objects in your theme configuration:
-
-```typescript
-// src/config/theme-data.ts (or similar file)
-export const customTheme = {
-  name: "Custom Brand",
-  cssVars: {
-    light: {
-      primary: "210 100% 50%",
-      "primary-foreground": "0 0% 98%",
-      secondary: "210 100% 95%",
-      "secondary-foreground": "210 100% 20%",
-      accent: "210 100% 90%",
-      "accent-foreground": "210 100% 15%",
-      // Add more color variables as needed
-    },
-    dark: {
-      primary: "210 100% 60%",
-      "primary-foreground": "210 100% 15%",
-      // Dark mode variants
-    }
-  }
-}
-```
-
-#### **Manual CSS Variable Customization**
-To directly modify theme colors, update your CSS variables in `globals.css` or `index.css`:
-
-```css
-:root {
-  --primary: oklch(0.5 0.2 240);
-  --primary-foreground: oklch(0.98 0.02 240);
-  --secondary: oklch(0.96 0.01 240);
-  --secondary-foreground: oklch(0.2 0.02 240);
-  /* Customize other variables */
-}
-
-.dark {
-  --primary: oklch(0.7 0.2 240);
-  --primary-foreground: oklch(0.15 0.02 240);
-  /* Dark mode variants */
-}
-```
-
-### **Removing the Theme Customizer**
-
-If you want to remove the theme customizer from your project:
-
-#### **Vite Version:**
-1. Remove the theme customizer component: `src/components/theme-customizer.tsx`
-2. Remove the theme customizer button from your layout
-3. Remove theme-related imports from your main layout file
-4. Delete the `src/components/theme-customizer/` folder if it exists
-
-#### **Next.js Version:**
-1. Remove the theme customizer component: `src/components/theme-customizer.tsx`
-2. Remove the theme customizer button from `src/app/layout.tsx`
-3. Remove theme-related imports from your layout files
-4. Delete the `src/components/theme-customizer/` folder if it exists
-
-> 📖 **Learn More:** For comprehensive theming documentation, visit the [official shadcn/ui theming guide](https://ui.shadcn.com/docs/theming) which covers CSS variables, color formats, and advanced customization techniques.
-
----
-
-## 📦 Tech Stack
-
-### **Core Framework**
-
-- **React 19** - Latest React with concurrent features
-- **TypeScript** - Full type safety
-- **Vite** - Ultra-fast development
-- **Next.js 15** - Production-ready with App Router
-
-### **UI & Styling**
-
-- **shadcn/ui v3** - Latest component library
-- **Radix UI** - Accessible primitives
-- **Tailwind CSS v4** - Utility-first styling
-- **tweakcn** - Advanced theme management
-- **Lucide React** - Beautiful icons
-
-### **State & Data**
-
-- **Zustand** - Lightweight state management
-- **React Hook Form** - Forms with validation
-- **Zod** - Schema validation
-- **TanStack Table** - Advanced data tables
-
-### **Development**
-
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **TypeScript** - Static type checking
-
----
-
-## 📋 What's Included
-
-### **🖥️ Dashboard Pages**
-
-- **Dashboard** - Overview with analytics cards and charts
-- **Dashboard v2** - Alternative dashboard with different metrics
-
-### **📱 Application Demos**
-
-![Apps Preview](vite-version/public/apps.png)
-
-- **📧 Mail** - Complete email interface (Inbox, Read, Compose)
-- **✅ Tasks** - Task management with drag & drop
-- **💬 Chat** - Real-time chat interface
-- **📅 Calendar** - Event scheduling and management
-- **👥 Users** - User management and profiles with advanced tables
-
-### **🔐 Authentication**
-
-- **Login** - 3 login page variants with different layouts
-- **Sign Up** - 3 registration page variants with different designs  
-- **Forgot Password** - 3 password recovery page variants
-
-### **⚙️ Settings & Profile**
-
-- **User Settings** - Manage your personal information and preferences
-- **Account Settings** - Profile management
-- **Plans & Billing** - Subscription and payment pages
-- **Appearance** - Theme and display preferences
-- **Notifications** - Notification preferences
-- **Connections** - Social media integrations
-
-### **❌ Error Pages**
-
-- **404** - Page not found
-- **401** - Unauthorized access
-- **403** - Forbidden
-- **500** - Internal server error
-- **Under Maintenance** - Maintenance mode page
-
-### **🌐 Landing Page Template**
-
-- **Hero Section** - Compelling headlines and CTAs
-- **About Section** - Company/product introduction with interactive elements
-- **Features Section** - Product/service highlights with icons
-- **Stats Section** - Key metrics and achievements display
-- **Logo Carousel** - Partner/client logos showcase
-- **Team Section** - Team member profiles and information
-- **Testimonials Section** - Customer reviews and social proof
-- **Blog Section** - Latest blog posts and articles
-- **Pricing Section** - Pricing tables and plans
-- **FAQ Section** - Frequently asked questions with expandable answers
-- **Contact Section** - Contact forms and information
-- **CTA Section** - Call-to-action components
-- **Navigation & Footer** - Complete navigation and footer components
-- **Theme Customizer** - Live theme switching for landing page
-
-### **📄 Additional Pages**
-
-- **FAQ** - Frequently asked questions
-- **Pricing** - Detailed pricing pages
-
----
-
-## 🌟 Why Choose This Template?
-
-### **🆓 Completely Free & Open Source**
-
-- **MIT Licensed** - Use for personal and commercial projects
-- **No restrictions** - Modify, distribute, and sell
-- **Community driven** - Contributions welcome
-
-### **🏢 Business Ready**
-
-- **Production code** - Clean, maintainable, and scalable
-- **Professional design** - Modern UI that looks great
-- **Complete templates** - Dashboard + Landing page included
-
-### **🎨 Advanced Theming**
-
-- **Live customization** - See changes in real-time
-- **tweakcn integration** - Professional theme management
-- **Multiple layouts** - Sidebar variants and options
-
-### **⚡ Developer Friendly**
-
-- **Modern stack** - Latest React, TypeScript, Tailwind CSS
-- **Great DX** - Fast development with Vite
-- **Type safe** - Full TypeScript coverage
-- **Well documented** - Clear code and comments
-
----
-
-## 🚀 Take It Further with ShadcnStore
-
-This free template is just the beginning! **ShadcnStore** offers a complete ecosystem of free & premium UI components, dashboards and templates to accelerate your development:
-
-### **🎁 Available Now**
-
-- **[Premium Blocks](https://shadcnstore.com/blocks)** - 150+ production-ready UI blocks
-  - **Application Blocks** - Advanced dashboard components
-  - **Marketing Blocks** - Landing page sections
-  - **E-commerce Blocks** - Online store components
-  - **Free Blocks** - No-cost starter components
-
-### **🔜 Coming Soon**
-
-- **Premium Templates** - Complete application templates
-- **Landing Page Collection** - Business-ready landing pages
-- **Premium Dashboards** - Advanced dashboard solutions
-
-### **💡 Perfect For**
-
-- **SaaS Applications** - Complete dashboard solutions
-- **Marketing Sites** - Beautiful landing pages
-- **E-commerce** - Online store interfaces
-- **Internal Tools** - Admin panels and dashboards
-
-> **🎯 [Explore ShadcnStore](https://shadcnstore.com)** - Premium blocks, dashboards and templates for modern web applications.
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Here's how you can help:
-
-### **Ways to Contribute**
-
-- 🐛 **Report bugs** - Found an issue? Let us know!
-- 💡 **Suggest features** - Have ideas for improvements?
-- 🔧 **Submit PRs** - Fix bugs or add new features
-- 📖 **Improve docs** - Help make documentation better
-- ⭐ **Star the repo** - Show your support!
-
-### **Getting Started**
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b my-feature`
-3. Make your changes and test thoroughly
-4. Commit: `git commit -m "Add new feature"`
-5. Push: `git push origin my-feature`
-6. Open a Pull Request
-
-### **Code Style**
-
-- Use **TypeScript** for all new code
-- Follow **ESLint** and **Prettier** configurations
-- Add **type definitions** for props and data
-- Write **clear commit messages**
-- Test your changes in both **Vite** and **Next.js** versions
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-**You are free to:**
-
-- ✅ Use commercially
-- ✅ Modify and distribute
-- ✅ Include in private projects
-- ✅ Sell products built with this template
-
-**Attribution to [ShadcnStore](https://shadcnstore.com) is appreciated but not required.**
-
----
-
-## 🙏 Credits & Acknowledgments
-
-This template is built on the shoulders of amazing open-source projects:
-
-- **[shadcn/ui](https://ui.shadcn.com)** - Beautiful and accessible components
-- **[Radix UI](https://www.radix-ui.com)** - Low-level accessible primitives
-- **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework
-- **[Lucide Icons](https://lucide.dev)** - Beautiful & consistent icons
-- **[tweakcn](https://tweakcn.com)** - Advanced theme customization
-- **[Recharts](https://recharts.org)** - Composable charting library
-- **[TanStack Table](https://tanstack.com/table)** - Powerful data tables
-
----
-
-## 📞 Support & Community
-
-### **Get Help**
-
-- 📖 **Documentation** - This README covers everything
-- 🐛 **Issues** - [Report bugs](https://github.com/silicondeck/shadcn-dashboard-landing-template/issues)
-- 💬 **Discussions** - [Join conversations](https://github.com/silicondeck/shadcn-dashboard-landing-template/discussions)
-
-### **Stay Connected**
-
-- 🌐 **Website** - [ShadcnStore.com](https://shadcnstore.com)
-- 🐦 **Twitter** - [@shadcnstore](https://twitter.com/shadcnstore)
-- 💬 **Discord** - [Join our server](https://discord.com/invite/XEQhPc9a6p)
-- 📧 **Email** - [hello@shadcnstore.com](mailto:hello@shadcnstore.com)
-
----
-
-<div align="center">
-
-**⭐ Star this repo if it helped you!**
-
-[![ShadcnStore](https://img.shields.io/badge/Built%20by-ShadcnStore-blue?style=for-the-badge)](https://shadcnstore.com)
-
-_A free & open-source template by **[ShadcnStore](https://shadcnstore.com)** - Premium UI components, dashboards and templates for modern web development._
-
-</div>
+MIT — see [`License.md`](License.md).
