@@ -1,6 +1,9 @@
 "use client"
 
+import * as React from "react"
+import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -16,6 +19,27 @@ export function ForgotPasswordForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [email, setEmail] = React.useState("")
+  const [status, setStatus] = React.useState<"idle" | "sending" | "sent">("idle")
+  const [serverError, setServerError] = React.useState<string | null>(null)
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setServerError(null)
+    setStatus("sending")
+
+    const supabase = createClient()
+    const { error } = await supabase.auth.resetPasswordForEmail(email)
+
+    if (error) {
+      setServerError(error.message)
+      setStatus("idle")
+      return
+    }
+
+    setStatus("sent")
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -26,7 +50,7 @@ export function ForgotPasswordForm1({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-3">
@@ -35,17 +59,38 @@ export function ForgotPasswordForm1({
                     id="email"
                     type="email"
                     placeholder="you@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full cursor-pointer">
-                  Send Reset Link
-                </Button>
+                {serverError && (
+                  <p className="text-destructive text-sm" role="alert">
+                    {serverError}
+                  </p>
+                )}
+                {status === "sent" ? (
+                  <p className="text-sm" role="status">
+                    Check your inbox — if an account exists for that address,
+                    a reset link is on its way.
+                  </p>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="w-full cursor-pointer"
+                    disabled={status === "sending"}
+                  >
+                    {status === "sending" && (
+                      <Loader2 className="size-4 animate-spin" />
+                    )}
+                    Send reset link
+                  </Button>
+                )}
               </div>
               <div className="text-center text-sm">
                 Remember your password?{" "}
-                <a href="/auth/sign-in" className="underline underline-offset-4">
-                  Back to sign in
+                <a href="/sign-in" className="underline underline-offset-4">
+                  Back to log in
                 </a>
               </div>
             </div>

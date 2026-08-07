@@ -1,9 +1,13 @@
 "use client"
 
+import * as React from "react"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -41,6 +45,10 @@ export function SignupForm1({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter()
+  const [serverError, setServerError] = React.useState<string | null>(null)
+  const [confirmationSent, setConfirmationSent] = React.useState(false)
+
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupFormSchema),
     defaultValues: {
@@ -53,9 +61,32 @@ export function SignupForm1({
     },
   })
 
-  function onSubmit(data: SignupFormValues) {
-    console.log("Signup attempt:", data)
-    // Here you would typically handle the signup
+  async function onSubmit(data: SignupFormValues) {
+    setServerError(null)
+    const supabase = createClient()
+    const { data: signUpData, error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          full_name: `${data.firstName} ${data.lastName}`,
+        },
+      },
+    })
+
+    if (error) {
+      setServerError(error.message)
+      return
+    }
+
+    // With email confirmation enabled Supabase returns no session yet.
+    if (!signUpData.session) {
+      setConfirmationSent(true)
+      return
+    }
+
+    router.push("/dashboard")
+    router.refresh()
   }
 
   return (
@@ -161,24 +192,32 @@ export function SignupForm1({
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full cursor-pointer">
-                    Create Account
-                  </Button>
-
-                  <Button variant="outline" className="w-full cursor-pointer" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path
-                        d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    Sign up with Google
+                  {serverError && (
+                    <p className="text-destructive text-sm" role="alert">
+                      {serverError}
+                    </p>
+                  )}
+                  {confirmationSent && (
+                    <p className="text-sm" role="status">
+                      Check your inbox — we sent you a confirmation link to
+                      finish creating your account.
+                    </p>
+                  )}
+                  <Button
+                    type="submit"
+                    className="w-full cursor-pointer"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    {form.formState.isSubmitting && (
+                      <Loader2 className="size-4 animate-spin" />
+                    )}
+                    Create account
                   </Button>
                 </div>
                 <div className="text-center text-sm">
                   Already have an account?{" "}
-                  <a href="/auth/sign-in" className="underline underline-offset-4">
-                    Sign in
+                  <a href="/sign-in" className="underline underline-offset-4">
+                    Log in
                   </a>
                 </div>
               </div>
@@ -187,8 +226,8 @@ export function SignupForm1({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By continuing, you agree to the Nova Analytics Terms of Service and
+        Privacy Policy.
       </div>
     </div>
   )

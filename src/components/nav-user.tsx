@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import {
   CreditCard,
   EllipsisVertical,
@@ -8,7 +9,9 @@ import {
   CircleUser,
 } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
+import { createClient } from "@/lib/supabase/client"
 import { Logo } from "@/components/logo"
 import {
   DropdownMenu,
@@ -36,6 +39,32 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const router = useRouter()
+
+  // Show the signed-in Supabase user; fall back to the provided defaults.
+  const [displayName, setDisplayName] = React.useState(user.name)
+  const [displayEmail, setDisplayEmail] = React.useState(user.email)
+
+  React.useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        setDisplayEmail(data.user.email ?? user.email)
+        const fullName = data.user.user_metadata?.full_name
+        if (typeof fullName === "string" && fullName.trim()) {
+          setDisplayName(fullName)
+        }
+      }
+    })
+  }, [user.email])
+
+  async function handleLogout(event: React.MouseEvent) {
+    event.preventDefault()
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push("/")
+    router.refresh()
+  }
 
   return (
     <SidebarMenu>
@@ -50,9 +79,9 @@ export function NavUser({
                 < Logo size={28} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{displayName}</span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
+                  {displayEmail}
                 </span>
               </div>
               <EllipsisVertical className="ml-auto size-4" />
@@ -70,9 +99,9 @@ export function NavUser({
                   < Logo size={28} />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{displayName}</span>
                   <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
+                    {displayEmail}
                   </span>
                 </div>
               </div>
@@ -99,11 +128,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild className="cursor-pointer">
-              <Link href="/sign-in">
-                <LogOut />
-                Log out
-              </Link>
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
+              <LogOut />
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
