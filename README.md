@@ -2,7 +2,7 @@
 
 > See your data in a new light. Nova Analytics turns raw product and revenue data into clear, real-time dashboards your whole team can act on.
 
-**Live demo:** _URL coming after deploy_ · **Test login:** `admin@novaanalytics.io` / password provided in SUBMISSION notes
+**Live demo:** https://nova-analytics-khaki.vercel.app · **Test login:** `admin@novaanalytics.io` / password provided in SUBMISSION notes
 
 ![Nova Analytics landing page](docs/screenshot-landing.png)
 ![Nova Analytics dashboard](docs/screenshot-dashboard.png)

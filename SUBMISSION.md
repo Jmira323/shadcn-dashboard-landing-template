@@ -5,7 +5,7 @@
 ## Links
 
 - **GitHub repository (public fork):** https://github.com/Jmira323/shadcn-dashboard-landing-template
-- **Live deployment (HTTPS):** _URL coming after deploy_
+- **Live deployment (HTTPS):** https://nova-analytics-khaki.vercel.app
 - **Video walkthrough:** _link to be added_
 
 ## Test credentials
