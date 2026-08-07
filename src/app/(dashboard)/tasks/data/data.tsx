@@ -3,6 +3,7 @@ import {
   Circle,
   Clock,
   PlayCircle,
+  type LucideIcon,
 } from "lucide-react"
 
 export const categories = [
@@ -51,7 +52,7 @@ export const statuses = [
   },
 ]
 
-export const priorities = [
+export const priorities: { label: string; value: string; icon?: LucideIcon }[] = [
   {
     label: "Minor",
     value: "minor"
