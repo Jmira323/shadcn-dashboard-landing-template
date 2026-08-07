@@ -1,0 +1,14 @@
+<svg width="264" height="64" viewBox="0 0 264 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nova Analytics logo">
+  <defs>
+    <linearGradient id="novaGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6,8) scale(0.75)">
+    <rect x="0" y="0" width="64" height="64" rx="16" fill="url(#novaGrad)"/>
+    <path d="M32 10 C33.5 22, 43 31.5, 55 33 C43 34.5, 33.5 44, 32 56 C30.5 44, 21 34.5, 9 33 C21 31.5, 30.5 22, 32 10 Z" fill="#FFFFFF"/>
+    <path d="M49 9 C49.6 13, 51 14.4, 55 15 C51 15.6, 49.6 17, 49 21 C48.4 17, 47 15.6, 43 15 C47 14.4, 48.4 13, 49 9 Z" fill="#FFFFFF" fill-opacity="0.92"/>
+  </g>
+  <text x="70" y="40" font-family="Inter, Geist, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" fill="#0F172A">Nova<tspan font-weight="600" fill="#7C3AED"> Analytics</tspan></text>
+</svg>

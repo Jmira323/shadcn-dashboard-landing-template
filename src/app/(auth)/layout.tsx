@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Authentication - ShadcnStore",
-  description: "Sign in to your account or create a new one",
+  title: "Sign in",
+  description: "Sign in to your Nova Analytics account or create a new one",
 };
 
 export default function AuthLayout({

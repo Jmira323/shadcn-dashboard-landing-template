@@ -8,17 +8,13 @@ import {
   CheckSquare,
   MessageCircle,
   Calendar,
-  Shield,
-  AlertTriangle,
   Settings,
   HelpCircle,
   CreditCard,
-  LayoutTemplate,
   Users,
 } from "lucide-react"
 import Link from "next/link"
 import { Logo } from "@/components/logo"
-import { SidebarNotification } from "@/components/sidebar-notification"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -34,8 +30,8 @@ import {
 
 const data = {
   user: {
-    name: "ShadcnStore",
-    email: "store@example.com",
+    name: "Ava Reyes",
+    email: "admin@novaanalytics.io",
     avatar: "",
   },
   navGroups: [
@@ -43,12 +39,12 @@ const data = {
       label: "Dashboards",
       items: [
         {
-          title: "Dashboard 1",
+          title: "Overview",
           url: "/dashboard",
           icon: LayoutDashboard,
         },
         {
-          title: "Dashboard 2",
+          title: "Analytics",
           url: "/dashboard-2",
           icon: LayoutPanelLeft,
         },
@@ -85,84 +81,8 @@ const data = {
       ],
     },
     {
-      label: "Pages",
+      label: "Workspace",
       items: [
-        {
-          title: "Landing",
-          url: "/landing",
-          target: "_blank",
-          icon: LayoutTemplate,
-        },
-        {
-          title: "Auth Pages",
-          url: "#",
-          icon: Shield,
-          items: [
-            {
-              title: "Sign In 1",
-              url: "/sign-in",
-            },
-            {
-              title: "Sign In 2",
-              url: "/sign-in-2",
-            },
-            {
-              title: "Sign In 3",
-              url: "/sign-in-3",
-            },
-            {
-              title: "Sign Up 1",
-              url: "/sign-up",
-            },
-            {
-              title: "Sign Up 2",
-              url: "/sign-up-2",
-            },
-            {
-              title: "Sign Up 3",
-              url: "/sign-up-3",
-            },
-            {
-              title: "Forgot Password 1",
-              url: "/forgot-password",
-            },
-            {
-              title: "Forgot Password 2",
-              url: "/forgot-password-2",
-            },
-            {
-              title: "Forgot Password 3",
-              url: "/forgot-password-3",
-            }
-          ],
-        },
-        {
-          title: "Errors",
-          url: "#",
-          icon: AlertTriangle,
-          items: [
-            {
-              title: "Unauthorized",
-              url: "/errors/unauthorized",
-            },
-            {
-              title: "Forbidden",
-              url: "/errors/forbidden",
-            },
-            {
-              title: "Not Found",
-              url: "/errors/not-found",
-            },
-            {
-              title: "Internal Server Error",
-              url: "/errors/internal-server-error",
-            },
-            {
-              title: "Under Maintenance",
-              url: "/errors/under-maintenance",
-            },
-          ],
-        },
         {
           title: "Settings",
           url: "#",
@@ -217,12 +137,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                  <Logo size={24} className="text-current" />
-                </div>
+                <Logo size={32} className="shrink-0 rounded-lg" />
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">ShadcnStore</span>
-                  <span className="truncate text-xs">Admin Dashboard</span>
+                  <span className="truncate font-medium">Nova Analytics</span>
+                  <span className="truncate text-xs">Growth plan</span>
                 </div>
               </Link>
             </SidebarMenuButton>
@@ -235,7 +153,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarNotification />
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>

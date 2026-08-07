@@ -11,8 +11,6 @@ import {
   CheckSquare,
   MessageCircle,
   Calendar,
-  Shield,
-  AlertTriangle,
   Settings,
   HelpCircle,
   CreditCard,
@@ -128,29 +126,14 @@ export function CommandSearch({ open, onOpenChange }: CommandSearchProps) {
 
   const searchItems: SearchItem[] = [
     // Dashboards
-    { title: "Dashboard 1", url: "/dashboard", group: "Dashboards", icon: LayoutDashboard },
-    { title: "Dashboard 2", url: "/dashboard-2", group: "Dashboards", icon: LayoutPanelLeft },
+    { title: "Overview", url: "/dashboard", group: "Dashboards", icon: LayoutDashboard },
+    { title: "Analytics", url: "/dashboard-2", group: "Dashboards", icon: LayoutPanelLeft },
 
     // Apps
     { title: "Mail", url: "/mail", group: "Apps", icon: Mail },
     { title: "Tasks", url: "/tasks", group: "Apps", icon: CheckSquare },
     { title: "Chat", url: "/chat", group: "Apps", icon: MessageCircle },
     { title: "Calendar", url: "/calendar", group: "Apps", icon: Calendar },
-
-    // Auth Pages
-    { title: "Sign In 1", url: "/auth/sign-in", group: "Auth Pages", icon: Shield },
-    { title: "Sign In 2", url: "/auth/sign-in-2", group: "Auth Pages", icon: Shield },
-    { title: "Sign Up 1", url: "/auth/sign-up", group: "Auth Pages", icon: Shield },
-    { title: "Sign Up 2", url: "/auth/sign-up-2", group: "Auth Pages", icon: Shield },
-    { title: "Forgot Password 1", url: "/auth/forgot-password", group: "Auth Pages", icon: Shield },
-    { title: "Forgot Password 2", url: "/auth/forgot-password-2", group: "Auth Pages", icon: Shield },
-
-    // Errors
-    { title: "Unauthorized", url: "/errors/unauthorized", group: "Errors", icon: AlertTriangle },
-    { title: "Forbidden", url: "/errors/forbidden", group: "Errors", icon: AlertTriangle },
-    { title: "Not Found", url: "/errors/not-found", group: "Errors", icon: AlertTriangle },
-    { title: "Internal Server Error", url: "/errors/internal-server-error", group: "Errors", icon: AlertTriangle },
-    { title: "Under Maintenance", url: "/errors/under-maintenance", group: "Errors", icon: AlertTriangle },
 
     // Settings
     { title: "User Settings", url: "/settings/user", group: "Settings", icon: User },

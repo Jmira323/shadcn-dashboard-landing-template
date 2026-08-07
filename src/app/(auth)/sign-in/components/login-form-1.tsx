@@ -36,7 +36,7 @@ export function LoginForm1({
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "test@example.com",
+      email: "admin@novaanalytics.io",
       password: "password",
     },
   })
@@ -64,7 +64,7 @@ export function LoginForm1({
                         <FormControl>
                           <Input
                             type="email"
-                            placeholder="test@example.com"
+                            placeholder="admin@novaanalytics.io"
                             {...field}
                           />
                         </FormControl>

@@ -34,7 +34,7 @@ export function ForgotPasswordForm1({
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder="you@company.com"
                     required
                   />
                 </div>
