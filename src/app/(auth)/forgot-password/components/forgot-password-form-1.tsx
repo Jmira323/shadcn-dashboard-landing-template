@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Loader2 } from "lucide-react"
+import posthog from "posthog-js"
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -37,6 +38,7 @@ export function ForgotPasswordForm1({
       return
     }
 
+    posthog.capture("password_reset_requested")
     setStatus("sent")
   }
 

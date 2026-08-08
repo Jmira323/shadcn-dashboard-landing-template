@@ -31,6 +31,7 @@ import { Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import posthog from "posthog-js"
 
 const userFormSchema = z.object({
   name: z.string().min(2, {
@@ -76,6 +77,12 @@ export function UserFormDialog({ onAddUser }: UserFormDialogProps) {
 
   function onSubmit(data: UserFormValues) {
     onAddUser(data)
+    posthog.capture("user_created", {
+      role: data.role,
+      plan: data.plan,
+      billing_method: data.billing,
+      status: data.status,
+    })
     form.reset()
     setOpen(false)
   }

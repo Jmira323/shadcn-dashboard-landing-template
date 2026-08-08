@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Plus } from "lucide-react"
 import { z } from "zod"
+import posthog from "posthog-js"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -83,6 +84,12 @@ export function AddTaskModal({ onAddTask, trigger }: AddTaskModalProps) {
       }
 
       onAddTask?.(newTask)
+      posthog.capture("task_created", {
+        status: validatedData.status,
+        category: validatedData.category,
+        priority: validatedData.priority,
+        has_description: Boolean(validatedData.description),
+      })
 
       // Reset form and close modal
       setFormData({

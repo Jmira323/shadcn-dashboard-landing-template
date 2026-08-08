@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Star } from 'lucide-react'
+import posthog from 'posthog-js'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { DotPattern } from '@/components/dot-pattern'
@@ -44,13 +45,13 @@ export function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button size="lg" className="text-base cursor-pointer" asChild>
-              <Link href="/sign-up">
+              <Link href="/sign-up" onClick={() => posthog.capture("landing_cta_selected", { cta: "get_started" })}>
                 Get started
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="text-base cursor-pointer" asChild>
-              <Link href="/sign-in">
+              <Link href="/sign-in" onClick={() => posthog.capture("landing_cta_selected", { cta: "login" })}>
                 Log in
               </Link>
             </Button>

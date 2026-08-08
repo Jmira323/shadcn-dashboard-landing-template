@@ -1,13 +1,23 @@
 import posthog from "posthog-js"
 
-// Privacy-friendly product analytics. Initialized only when a PostHog key is
-// configured, so the app runs identically without one. The 2025-05-24 defaults
-// capture pageviews automatically, including SPA route changes.
-const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST
 
-if (posthogKey) {
+if (!posthogKey || !posthogHost) {
+  if (process.env.NODE_ENV === "development") {
+    const missingVariable = posthogKey
+      ? "NEXT_PUBLIC_POSTHOG_HOST"
+      : "NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN"
+
+    throw new Error(
+      `${missingVariable} variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once ${missingVariable} is configured`,
+    )
+  }
+} else {
   posthog.init(posthogKey, {
-    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
-    defaults: "2025-05-24",
+    api_host: posthogHost,
+    defaults: "2026-01-30",
+    capture_exceptions: true,
+    debug: process.env.NODE_ENV === "development",
   })
 }

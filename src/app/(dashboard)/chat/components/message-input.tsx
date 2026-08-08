@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
+import posthog from "posthog-js"
 import {
   Send,
   Paperclip,
@@ -46,6 +47,9 @@ export function MessageInput({
     const trimmedMessage = message.trim()
     if (trimmedMessage && !disabled) {
       onSendMessage(trimmedMessage)
+      posthog.capture("chat_message_sent", {
+        message_length: trimmedMessage.length,
+      })
       setMessage("")
       setIsTyping(false)
 

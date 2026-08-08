@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Loader2 } from "lucide-react"
+import posthog from "posthog-js"
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -81,10 +82,12 @@ export function SignupForm1({
 
     // With email confirmation enabled Supabase returns no session yet.
     if (!signUpData.session) {
+      posthog.capture("signup_confirmation_requested")
       setConfirmationSent(true)
       return
     }
 
+    posthog.capture("account_created")
     router.push("/dashboard")
     router.refresh()
   }

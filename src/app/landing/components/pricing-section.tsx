@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useState } from 'react'
+import posthog from 'posthog-js'
 
 const plans = [
   {
@@ -82,7 +83,13 @@ export function PricingSection() {
             <ToggleGroup
               type="single"
               value={isYearly ? "yearly" : "monthly"}
-              onValueChange={(value) => setIsYearly(value === "yearly")}
+              onValueChange={(value) => {
+                if (!value) return
+                setIsYearly(value === "yearly")
+                posthog.capture("pricing_billing_interval_selected", {
+                  billing_interval: value,
+                })
+              }}
               className="bg-secondary text-secondary-foreground border-none rounded-full p-1 cursor-pointer shadow-none"
             >
               <ToggleGroupItem
@@ -145,7 +152,16 @@ export function PricingSection() {
                       variant={plan.popular ? 'default' : 'secondary'}
                       asChild
                     >
-                      <Link href="/sign-up">{plan.cta}</Link>
+                      <Link
+                        href="/sign-up"
+                        onClick={() => posthog.capture("pricing_plan_selected", {
+                          plan_name: plan.name.toLowerCase(),
+                          billing_interval: isYearly ? "yearly" : "monthly",
+                          cta: plan.cta.toLowerCase().replace(/ /g, "_"),
+                        })}
+                      >
+                        {plan.cta}
+                      </Link>
                     </Button>
                   </div>
 
