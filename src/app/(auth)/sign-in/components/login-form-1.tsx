@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Loader2 } from "lucide-react"
+import posthog from "posthog-js"
 import { cn } from "@/lib/utils"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -60,6 +61,8 @@ export function LoginForm1({
       setServerError(error.message)
       return
     }
+
+    posthog.capture("login_completed")
 
     router.push("/dashboard")
     router.refresh()

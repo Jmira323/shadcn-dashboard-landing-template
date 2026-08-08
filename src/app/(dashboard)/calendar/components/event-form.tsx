@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { CalendarIcon, Clock, MapPin, Users, Type, Tag } from "lucide-react"
 import { format } from "date-fns"
+import posthog from "posthog-js"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -85,12 +86,22 @@ export function EventForm({ event, open, onOpenChange, onSave, onDelete }: Event
       color: eventTypes.find(t => t.value === formData.type)?.color || "bg-blue-500"
     }
     onSave(eventData)
+    posthog.capture(event ? "calendar_event_updated" : "calendar_event_created", {
+      event_type: formData.type,
+      duration: formData.duration,
+      is_all_day: formData.allDay,
+      has_reminder: formData.reminder,
+      attendee_count: formData.attendees.length,
+    })
     onOpenChange(false)
   }
 
   const handleDelete = () => {
     if (event?.id && onDelete) {
       onDelete(event.id)
+      posthog.capture("calendar_event_deleted", {
+        event_type: event.type,
+      })
       onOpenChange(false)
     }
   }

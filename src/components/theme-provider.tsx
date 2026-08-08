@@ -1,7 +1,9 @@
 "use client"
 
 import * as React from "react"
+import posthog from "posthog-js"
 import { ThemeProviderContext } from "@/contexts/theme-context"
+import { createClient } from "@/lib/supabase/client"
 
 type Theme = "dark" | "light" | "system"
 
@@ -40,6 +42,32 @@ export function ThemeProvider({
 
     root.classList.add(theme)
   }, [theme])
+
+  React.useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN || !process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+      return
+    }
+
+    const supabase = createClient()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        posthog.reset()
+        return
+      }
+
+      if ((event === "INITIAL_SESSION" || event === "SIGNED_IN") && session?.user) {
+        const { user } = session
+        const fullName = user.user_metadata?.full_name
+
+        posthog.identify(user.id, {
+          email: user.email,
+          ...(typeof fullName === "string" && fullName.trim() ? { name: fullName } : {}),
+        })
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
 
   const value = {
     theme,
