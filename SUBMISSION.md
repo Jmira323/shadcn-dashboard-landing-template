@@ -11,9 +11,9 @@
 ## Test credentials
 
 - **Email:** `admin@novaanalytics.io`
-- **Password:** _provided with the submission email_
+- **Password:** `NovaDemo2026!`
 
-Reviewers can also create their own account via the signup form — email confirmation is disabled for the demo, so signup logs you straight into the dashboard.
+(Demo-only account on a fictional-brand Supabase project with no real data.) Reviewers can also create their own account via the signup form — new signups receive a Supabase confirmation email before their first login.
 
 ## What was built
 
