@@ -34,6 +34,7 @@ This project is a rebrand of an open-source dashboard template (see [Credits](#c
 - **Authentication** — real signup, login, logout, and password reset backed by Supabase; sessions refreshed on every request by `src/proxy.ts`.
 - **Protected dashboard** — unauthenticated visitors to `/dashboard` (or any app page) are redirected to `/sign-in`; successful auth lands on `/dashboard`. The proxy fails closed if Supabase env vars are missing.
 - **Whitelabeled UI** — Nova Analytics branding, violet/aqua palette, logo, and favicon throughout; dark mode included. Chart colors are validated for color-blind-safe separation and contrast in both modes.
+- **Analytics & monitoring** — optional PostHog web analytics (pageviews incl. SPA navigations), enabled by setting `NEXT_PUBLIC_POSTHOG_KEY`; a public `/api/health` endpoint returns `{ status, time }` for uptime checks.
 
 ## Getting started
 
@@ -57,6 +58,10 @@ cp .env.example .env.local
 ```dotenv
 NEXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-public-key>
+
+# optional — enables PostHog analytics when set
+NEXT_PUBLIC_POSTHOG_KEY=<your-posthog-project-api-key>
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 ```
 
 ### 3. Run

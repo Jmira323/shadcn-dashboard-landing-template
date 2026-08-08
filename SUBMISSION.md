@@ -22,6 +22,7 @@
 - Rebuilt the landing page at `/` as a Nova product page (hero with brand tagline, features, pricing, testimonials with fictional customers, FAQ, CTA band) with working CTAs into the auth flow.
 - Wired **real authentication with Supabase** (email/password): signup, login, logout, password-reset email, per-request session refresh, and route protection (visiting any dashboard page logged out redirects to `/sign-in`; logging in lands on `/dashboard`).
 - Deployed to Vercel with automatic HTTPS; CI (GitHub Actions) runs lint + build on every push.
+- Extra credit: PostHog web analytics (env-gated, pageviews incl. SPA navigation) and a `/api/health` monitoring endpoint.
 
 ## Honest notes — shortcuts taken / known limitations
 
